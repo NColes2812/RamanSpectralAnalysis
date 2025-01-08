@@ -1,0 +1,17 @@
+# RStudio files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.Renviron
+
+# Temporary files
+*.tmp
+
+# Data files (adjust as needed)
+*.csv
+*.xlsx
+
+# Logs and outputs
+*.log
+*.out
