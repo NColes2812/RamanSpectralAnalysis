@@ -59,14 +59,13 @@ library(GGally)         # Creates pairwise plots for exploratory data analysis
 # Set Working Directory
 # ---------------------------------
 # Users should set their working directory to the folder containing their data files.
-# Example: setwd("/path/to/your/data/")
-setwd("G:/Nathan All Raman spectra/Protein/Alpha syn fibrillation assay/Intensity Graphs (NEW)")
+setwd("/path/to/your/data/")
 
 # ---------------------------------
 # Load and Normalize Data
 # ---------------------------------
 # Load Raman spectral data from an Excel file
-Protein <- read_excel("ProteinLB.xlsx")
+Protein <- read_excel("Protein.xlsx")
 
 # Normalize the data using Standard Normal Variate (SNV) normalization
 Protein_result <- norm.SNV(as.matrix(Protein))  # Applies SNV normalization
@@ -282,8 +281,8 @@ print(heatmap_plot_Protein)
 # ---------------------------------
 # Define File Paths
 # Update these paths to match your local directory structure
-raman_file_path <- "G:/Nathan All Raman spectra/Protein/Alpha syn fibrillation assay/Intensity Graphs (NEW)/Protein_grouping.csv"
-grouping_file_path <- "G:/Nathan All Raman spectra/Protein/Alpha syn fibrillation assay/Intensity Graphs (NEW)/Grouping_Data.csv"
+raman_file_path <- "/path/to/your/data/"
+grouping_file_path <- "/path/to/your/data/"
 
 # Load Raman Spectral Data and Grouping Information
 raman_data <- read.csv(raman_file_path, header = TRUE, stringsAsFactors = FALSE)
