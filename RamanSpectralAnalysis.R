@@ -59,13 +59,14 @@ library(GGally)         # Creates pairwise plots for exploratory data analysis
 # Set Working Directory
 # ---------------------------------
 # Users should set their working directory to the folder containing their data files.
-setwd("/path/to/your/data/")
+# Example: setwd("/path/to/your/data/")
+setwd("G:/Nathan All Raman spectra/Protein/Alpha syn fibrillation assay/Intensity Graphs (NEW)")
 
 # ---------------------------------
 # Load and Normalize Data
 # ---------------------------------
 # Load Raman spectral data from an Excel file
-Protein <- read_excel("Protein.xlsx")
+Protein <- read_excel("ProteinLB.xlsx")
 
 # Normalize the data using Standard Normal Variate (SNV) normalization
 Protein_result <- norm.SNV(as.matrix(Protein))  # Applies SNV normalization
@@ -281,8 +282,8 @@ print(heatmap_plot_Protein)
 # ---------------------------------
 # Define File Paths
 # Update these paths to match your local directory structure
-raman_file_path <- "/path/to/your/data/"
-grouping_file_path <- "/path/to/your/data/"
+raman_file_path <- "G:/Nathan All Raman spectra/Protein/Alpha syn fibrillation assay/Intensity Graphs (NEW)/Protein_grouping.csv"
+grouping_file_path <- "G:/Nathan All Raman spectra/Protein/Alpha syn fibrillation assay/Intensity Graphs (NEW)/Grouping_Data.csv"
 
 # Load Raman Spectral Data and Grouping Information
 raman_data <- read.csv(raman_file_path, header = TRUE, stringsAsFactors = FALSE)
@@ -560,6 +561,23 @@ cat("\nDunn's Test:\n")
 print(dunn_test_result)
 
 # --------------------------------------------
+# Conditional Tests Based on Normality
+# --------------------------------------------
+if (shapiro_test$p.value > 0.05) {
+  # Normality assumption met: perform ANOVA and Tukey's HSD if ANOVA is significant
+  if (anova_summary[[1]]$'Pr(>F)'[1] < 0.05) {
+    tukey_test <- TukeyHSD(anova_results)
+    cat("Tukey's HSD Test:\n")
+    print(tukey_test)
+  } else {
+    cat("ANOVA is not significant; no post-hoc test conducted.\n")
+  }
+} else {
+  # Normality assumption not met: perform pairwise Wilcoxon test
+  pairwise_wilcox_result <- pairwise.wilcox.test(specific_freq$value, specific_freq$variable, p.adjust.method = "BH")
+  cat("Pairwise Wilcoxon Test Results with BH Adjustment:\n")
+  print(pairwise_wilcox_result)
+}
 
 
 
@@ -645,14 +663,3 @@ print(accuracy)
 cat("\nKappa Statistics:\n")
 print(kappa)
 # --------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
